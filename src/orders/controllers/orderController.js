@@ -4,6 +4,15 @@ const getOrders = async (req, res) => {
     res.json(orders)
 }
 
+const getOrder = async (req, res) => {
+    const param = Number(req.params.id)
+    const order = orders.find(o => o.id === param)
+    res.json(order)
+
+}
+
+// sync communication w/ other service (rest)
+
 const getOrdersByUser = async (req, res) => {
     const param = Number(req.params.id)
 
@@ -16,14 +25,16 @@ const getOrdersByUser = async (req, res) => {
 
     const { name } = await userResponse.json()
 
-    res.json({nameUser: name, ordersUser: ordersByUser})
+    res.json({ nameUser: name, ordersUser: ordersByUser })
 }
 
-const getOrder = async (req, res) => {
-    const param = Number(req.params.id)
-    const order = orders.find(o => o.id === param)
-    res.json(order)
-
+const createOrder = async (req, res) => {
+    const { id, name, price, userId } = req.body
+    const order = {
+        id: id, name: name, price: price, userId: userId
+    }
+    orders.push(order)
+    res.status(201).json(order)
 }
 
-export { getOrders, getOrder, getOrdersByUser }
+export { getOrders, getOrder, getOrdersByUser, createOrder }
