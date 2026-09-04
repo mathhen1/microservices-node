@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/mathhen1/microservices-node#readme",
   "dependencies": {
+    "amqplib": "^2.0.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
   }
