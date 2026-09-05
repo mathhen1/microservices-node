@@ -2,6 +2,7 @@ import "dotenv/config"
 import express from "express"
 import { userRouter } from "./src/users/routes/usersRoutes.js"
 import { ordersRouter } from "./src/orders/routes/orderRoutes.js"
+import { notificationsRouter } from "./src/notifications/routes/notificationRoutes.js"
 
 const app = express()
 const port = process.env.PORT
@@ -14,4 +15,5 @@ app.use("/notifications", notificationsRouter)
 
 app.listen(port, () => {
     console.log("Server rodando; Porta:", port)
+    consumerOrderCreated()
 })
