@@ -10,6 +10,7 @@ app.use(express.json())
 
 app.use("/users", userRouter)
 app.use("/orders", ordersRouter)
+app.use("/notifications", notificationsRouter)
 
 app.listen(port, () => {
     console.log("Server rodando; Porta:", port)
