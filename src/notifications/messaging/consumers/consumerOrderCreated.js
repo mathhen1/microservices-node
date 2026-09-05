@@ -1,4 +1,5 @@
 import amqp from "amqplib"
+import { notifications } from "../../repository/notificationRepository.js"
 
 export const consumerOrderCreated = async () => {
     try {
@@ -16,6 +17,12 @@ export const consumerOrderCreated = async () => {
             if (msg) {
                 const order = JSON.parse(msg.content.toString())
                 console.log(`Enviando confirmação do pedido! Pedido:${order.id}`)
+                notifications.push({
+                    id: notifications.length + 1,
+                    name: order.name,
+                    userId: order.userId,
+                    orderId: order.id
+                })
                 channel.ack(msg)
             }
         })
