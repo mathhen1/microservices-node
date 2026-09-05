@@ -1,3 +1,4 @@
+import { publishOrderCreated } from "../messaging/publishers/publishOrderCreated.js"
 import { orders } from "../repository/orderRepository.js"
 
 const getOrders = async (req, res) => {
@@ -8,7 +9,6 @@ const getOrder = async (req, res) => {
     const param = Number(req.params.id)
     const order = orders.find(o => o.id === param)
     res.json(order)
-
 }
 
 // sync communication w/ other service (rest)
@@ -34,6 +34,7 @@ const createOrder = async (req, res) => {
         id: id, name: name, price: price, userId: userId
     }
     orders.push(order)
+    await publishOrderCreated(order)
     res.status(201).json(order)
 }
 
